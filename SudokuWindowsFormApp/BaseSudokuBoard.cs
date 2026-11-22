@@ -9,6 +9,10 @@ namespace SudokuWindowsFormApp
     {
         private const int groupSize = 9;
 
+        // One shared Random for the whole app. Creating a new Random on every call
+        // can return the same sequence when calls happen within the same millisecond.
+        private static readonly Random random = new Random();
+
         protected SudokuCell[,] sudokuCells;
         protected List<int>[] rowsOptions;
         protected List<int>[] columnsOptions;
@@ -69,17 +73,17 @@ namespace SudokuWindowsFormApp
                 return false;
             else if (!rowsOptions[rowIndex].Contains(value))
             {
-                errorExplenaion = $"The value {value} can not appear twice in row {rowIndex}.";
+                errorExplenaion = $"The value {value} can not appear twice in row {rowIndex + 1}.";
                 return false;
             }
             else if (!columnsOptions[columnIndex].Contains(value))
             {
-                errorExplenaion = $"The value {value} can not appear twice in column {columnIndex}.";
+                errorExplenaion = $"The value {value} can not appear twice in column {columnIndex + 1}.";
                 return false;
             }
             else if (!nonentsOptions[nonentIndex].Contains(value))
             {
-                errorExplenaion = $"The value {value} can not appear twice in nonent {nonentIndex}.";
+                errorExplenaion = $"The value {value} can not appear twice in nonent {nonentIndex + 1}.";
                 return false;
             }
             return true;
@@ -147,26 +151,26 @@ namespace SudokuWindowsFormApp
             return possibilities;
         }
 
+        /// <summary>
+        /// Returns the possible values of a cell in a random order (Fisher-Yates shuffle).
+        /// </summary>
         private int[] GetCurrentShuffelledPossibilities(int rowIndex, int columnIndex, int nonentIndex)
         {
-            Random random = new Random();
             int[] possibilities = GetCurrentPossibilities(rowIndex, columnIndex, nonentIndex);
-            int[] shuffeledPossibilities = new int[possibilities.Length];
-            for (int i = 0; i < shuffeledPossibilities.Length; i++)
-                shuffeledPossibilities[i] = 0;
-
-            int index;
-            foreach (int value in possibilities)
+            for (int i = possibilities.Length - 1; i > 0; i--)
             {
-                do
-                {
-                    index = random.Next(shuffeledPossibilities.Length);
-                } while (shuffeledPossibilities[index] > 0);
-                shuffeledPossibilities[index] = value;
+                int j = random.Next(i + 1);
+                int temp = possibilities[i];
+                possibilities[i] = possibilities[j];
+                possibilities[j] = temp;
             }
-            return shuffeledPossibilities;
+            return possibilities;
         }
 
+        /// <summary>
+        /// Recursive backtracking solver. The shuffle flag is passed down the recursion,
+        /// so every cell (not only the first one) gets its candidates in random order.
+        /// </summary>
         private bool Solve(int rowIndex, int columnIndex, bool shuffle = false)
         {
             if (sudokuCells[rowIndex, columnIndex].Value > 0)
@@ -174,7 +178,7 @@ namespace SudokuWindowsFormApp
                 if (rowIndex == groupSize - 1 && columnIndex == groupSize - 1)
                     return true;
                 else
-                    return Solve(rowIndex + (columnIndex / (groupSize - 1)), (columnIndex + 1) % groupSize);
+                    return Solve(rowIndex + (columnIndex / (groupSize - 1)), (columnIndex + 1) % groupSize, shuffle);
             }
             else
             {
@@ -189,7 +193,7 @@ namespace SudokuWindowsFormApp
 
                     if (rowIndex == 8 && columnIndex == 8)
                         return true;
-                    else if (Solve(rowIndex + (columnIndex / (groupSize - 1)), (columnIndex + 1) % groupSize))
+                    else if (Solve(rowIndex + (columnIndex / (groupSize - 1)), (columnIndex + 1) % groupSize, shuffle))
                         return true;
                     else
                         UnuseValue(sudokuCells[rowIndex, columnIndex]);
