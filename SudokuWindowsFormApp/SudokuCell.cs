@@ -8,9 +8,9 @@ namespace SudokuWindowsFormApp
     {
         private char[] userNotes;
         private int value, rowIndex, columnIndex, nonentIndex;
-        public const int SideLength = 75;
-        private readonly Font valueFont = new Font("impact", 32);
-        private readonly Font noteFont = new Font("david", 14);
+        public const int SideLength = 60;
+        private readonly Font valueFont = new Font("impact", 26);
+        private readonly Font noteFont = new Font("david", 11);
 
         public SudokuCell(int value, int rowIndex, int columnIndex)
             : this(new string(' ', 9), value, rowIndex, columnIndex, true) { }
@@ -25,7 +25,7 @@ namespace SudokuWindowsFormApp
             this.columnIndex = columnIndex;
             nonentIndex = rowIndex - rowIndex % 3 + columnIndex / 3;
 
-            Value = value; // אם 0 - יוצגו הפתקים, אחרת - הערך
+            Value = value; // if 0 - notes are displayed, otherwise - the value
 
             Location = new Point(SideLength * columnIndex, SideLength * rowIndex);
             Size = new Size(SideLength, SideLength);

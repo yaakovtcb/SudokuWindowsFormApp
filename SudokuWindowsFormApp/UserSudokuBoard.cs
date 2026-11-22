@@ -14,7 +14,7 @@ namespace SudokuWindowsFormApp
 
     internal class UserSudokuBoard : BaseSudokuBoard
     {
-        private readonly Font controlFont = new Font("impact", 20);
+        private readonly Font controlFont = new Font("impact", 16);
         private Button buttonUndo, buttonRedo;
         private CheckBox markModeCheckBox;
         private SudokuMoveList moveList;
@@ -109,18 +109,18 @@ namespace SudokuWindowsFormApp
             Solve(true);
 
             Random random = new Random();
-            int amountOfFullCells, rowIndex, columnIndex, nonentIndex;
+            int amountOfCellsToEmpty, rowIndex, columnIndex, nonentIndex;
 
             if (difficulty == "easy")
-                amountOfFullCells = (int)EMPTY_CELLS_FOR_DIFFICULTY.EASY_DIFFICULTY_AMOUNT;
+                amountOfCellsToEmpty = (int)EMPTY_CELLS_FOR_DIFFICULTY.EASY_DIFFICULTY_AMOUNT;
             else if (difficulty == "medium")
-                amountOfFullCells = (int)EMPTY_CELLS_FOR_DIFFICULTY.MEDIUM_DIFFICULTY_AMOUNT;
+                amountOfCellsToEmpty = (int)EMPTY_CELLS_FOR_DIFFICULTY.MEDIUM_DIFFICULTY_AMOUNT;
             else if (difficulty == "hard")
-                amountOfFullCells = (int)EMPTY_CELLS_FOR_DIFFICULTY.HARD_DIFFICULTY_AMOUNT;
+                amountOfCellsToEmpty = (int)EMPTY_CELLS_FOR_DIFFICULTY.HARD_DIFFICULTY_AMOUNT;
             else
                 throw new ArgumentException("Invalid difficulty level.");
 
-            for (int i = 0; i < amountOfFullCells; i++)
+            for (int i = 0; i < amountOfCellsToEmpty; i++)
             {
                 do
                 {

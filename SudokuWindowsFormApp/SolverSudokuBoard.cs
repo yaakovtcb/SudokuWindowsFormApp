@@ -15,7 +15,7 @@ namespace SudokuWindowsFormApp
             buttonSolve.Text = "Solve";
             buttonSolve.Location = new Point(sudokuCells[8, 3].Left, sudokuCells[8, 3].Bottom);
             buttonSolve.Size = new Size(SudokuCell.SideLength * 3, SudokuCell.SideLength);
-            buttonSolve.Font = new Font("impact", 20);
+            buttonSolve.Font = new Font("impact", 16);
             buttonSolve.Click += new EventHandler((sender, e) =>
             {
                 buttonSolve.Enabled = false;

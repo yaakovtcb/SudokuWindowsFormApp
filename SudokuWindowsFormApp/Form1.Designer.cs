@@ -45,24 +45,28 @@ namespace SudokuWindowsFormApp
             this.SuspendLayout();
 
             // buttonSaveBoard
-            this.buttonSaveBoard.Location = new Point(690, 10);
-            this.buttonSaveBoard.Size = new Size(200, 40);
+            this.buttonSaveBoard.Location = new Point(555, 10);
+            this.buttonSaveBoard.Size = new Size(200, 45);
             this.buttonSaveBoard.Text = "Save";
-            this.buttonSaveBoard.UseVisualStyleBackColor = true;
+            this.buttonSaveBoard.BackColor = Color.LightGray;
+            this.buttonSaveBoard.Font = new Font("Impact", 14F);
+            this.buttonSaveBoard.UseVisualStyleBackColor = false;
             this.buttonSaveBoard.Visible = false;
             this.buttonSaveBoard.Click += new System.EventHandler(this.buttonSaveBoard_Click);
 
             // buttonGenerateBoard
-            this.buttonGenerateBoard.Location = new Point(690, 60);
-            this.buttonGenerateBoard.Size = new Size(200, 40);
+            this.buttonGenerateBoard.Location = new Point(555, 60);
+            this.buttonGenerateBoard.Size = new Size(200, 45);
             this.buttonGenerateBoard.Text = "Start game";
-            this.buttonGenerateBoard.UseVisualStyleBackColor = true;
+            this.buttonGenerateBoard.BackColor = Color.LightGray;
+            this.buttonGenerateBoard.Font = new Font("Impact", 14F);
+            this.buttonGenerateBoard.UseVisualStyleBackColor = false;
             this.buttonGenerateBoard.Click += new System.EventHandler(this.buttonGenerateBoard_Click);
 
             // groupBoxBoardType
             this.groupBoxBoardType.Controls.Add(this.radioButtonUser);
             this.groupBoxBoardType.Controls.Add(this.radioButtonSolver);
-            this.groupBoxBoardType.Location = new Point(690, 110);
+            this.groupBoxBoardType.Location = new Point(555, 115);
             this.groupBoxBoardType.Size = new Size(200, 90);
             this.groupBoxBoardType.Text = "Board type";
 
@@ -83,7 +87,7 @@ namespace SudokuWindowsFormApp
             this.groupBoxSelectDifficulty.Controls.Add(this.radioButtonMediumLevel);
             this.groupBoxSelectDifficulty.Controls.Add(this.radioButtonHardLevel);
             this.groupBoxSelectDifficulty.Controls.Add(this.radioButtonSavedBoard);
-            this.groupBoxSelectDifficulty.Location = new Point(690, 210);
+            this.groupBoxSelectDifficulty.Location = new Point(555, 215);
             this.groupBoxSelectDifficulty.Size = new Size(200, 140);
             this.groupBoxSelectDifficulty.Text = "Select difficulty";
 
@@ -110,7 +114,8 @@ namespace SudokuWindowsFormApp
             this.radioButtonSavedBoard.Visible = false;
 
             // Form1
-            this.ClientSize = new Size(950, 760);
+            this.ClientSize = new Size(770, 610);
+            this.StartPosition = FormStartPosition.CenterScreen;
             this.Text = "Sudoku Game";
             this.Controls.Add(this.groupBoxBoardType);
             this.Controls.Add(this.groupBoxSelectDifficulty);
